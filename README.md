@@ -16,20 +16,21 @@ Setup browser profiles per client for easier management of different environment
 | DarkReader  | Reliable dark mode across all sites. | Free Extension |
 
 ## Developer Tools
+* [Visual Studio (Latest) Professional/Enterprise](https://visualstudio.microsoft.com/downloads/)
 * [Visual Studio Code](https://visualstudio.microsoft.com/downloads/)
+* [Dataverse Core Tools](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/download-tools-nuget)
+* [Power Platform CLI](https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction?tabs=windows)
 * [Node.js](https://nodejs.org/en/download/)
 * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-* [Visual Studio (Latest) Professional/Enterprise](https://visualstudio.microsoft.com/downloads/)
-* [Fiddler](https://www.telerik.com/download/fiddler)
-* [Power Platform CLI](https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction?tabs=windows)
-* [Dataverse Core Tools](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/download-tools-nuget)
+* [Postman](https://www.postman.com/)
 * [XrmToolBox](https://www.xrmtoolbox.com/)
   * Early Bound Generator
   * FetchXml Tester
   * Security Role
+* [Fiddler](https://www.telerik.com/download/fiddler)
 * [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
 * [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&pivots=winget)
-* [Postman](https://www.postman.com/)
+
 
 ## Nuget
 * FakeXrmEasy
