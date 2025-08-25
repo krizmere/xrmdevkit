@@ -3,7 +3,7 @@ A starting kit for a new device for Dynamics 365 CRM development. Contains scrip
 
 ## Consulting
 | Tool  | Description | Free/Paid |
-| - | - | - |
+| :-- | :-- | :-- |
 | Microsoft Teams  | Intelligent Recap for transcribing and summarising client meetings during requirements gathering or analysis is crucial.  | Premium License |
 | OneNote  | For note taking that can be synchronised across devices, tied to your account. | Free |
 
