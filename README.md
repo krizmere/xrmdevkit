@@ -2,10 +2,10 @@
 A starting kit for a new device for Dynamics 365 CRM development. Contains scripts to install the necessary tools to get started.
 
 ## Consulting
-* Microsoft Teams Premium License
-  * Intelligent Recap for transcribing and summarising client meetings during requirements gathering or analysis is crucial.
-* OneNote
-  * For note taking that can be synchronised across devices, tied to your account.
+| Tool  | Description | Free/Paid |
+| - | - | - |
+| Microsoft Teams  | Intelligent Recap for transcribing and summarising client meetings during requirements gathering or analysis is crucial.  | Premium License |
+| OneNote  | For note taking that can be synchronised across devices, tied to your account. | Free |
 
 ## Browser Tools/Extensions
 * Setup browser profiles per client for easier management of different environments
@@ -30,6 +30,16 @@ A starting kit for a new device for Dynamics 365 CRM development. Contains scrip
   * Security Role
 * [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
 * [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&pivots=winget)
+* PCF
+
+## Nuget
+* FakeXrmEasy
+
+## npm
+* [xrm-mock](https://www.npmjs.com/package/xrm-mock)
+* 
+
+## Power Portals
 
 ## CI/CD
 
