@@ -4,13 +4,35 @@ A starting kit for a new device for Dynamics 365 CRM development. Contains scrip
 # How To Use
 Copy and paste these commands into Powershell (administrator) on a fresh Windows instance.
 ```
+# Check PowerShell version (requires 5.0 or later)
+if ($PSVersionTable.PSVersion.Major -lt 5) {
+    Write-Error "This script requires PowerShell 5.0 or later. Please upgrade your PowerShell version."
+    exit 1
+}
+
+# Check if running as administrator
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+if (-not $isAdmin) {
+    Write-Warning "This script requires administrator privileges. Please run PowerShell as Administrator."
+    exit 1
+}
+
+# Check if Winget is available
+try {
+    $wingetCheck = winget --version
+    Write-Host "Winget version: $wingetCheck" -ForegroundColor Green
+} catch {
+    Write-Error "Winget is not installed or not in PATH. Please install Winget first: https://docs.microsoft.com/windows/package-manager/winget/"
+    exit 1
+}
+
 # Install Git and refresh PATH
 winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
 # Check if git is installed properly, clone repository and run script
 git --version
-cd $HOME; mkdir Repos -ErrorAction SilentlyContinue; cd Repos
+cd $HOME; mkdir -p Repos; cd Repos
 git clone https://github.com/krizmere/d365-crm-technical-essentials.git
 cd d365-crm-technical-essentials
 
