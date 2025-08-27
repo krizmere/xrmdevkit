@@ -58,8 +58,9 @@ if ($exe) {
 winget install --id Microsoft.PowerAppsCLI --silent --accept-package-agreements --accept-source-agreements
 
 # Update Path Environment Variable (Refreshes so 'pac' command is recognized)
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-
+#$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+$env:PATH += ";$([Environment]::GetFolderPath('LocalApplicationData'))\Microsoft\PowerAppsCLI"
+Set-Location $env:USERPROFILE
 # Initialize Power Apps CLI 
 Write-Host "`nSetting up Power Apps CLI..." -ForegroundColor Yellow
 pac install latest
