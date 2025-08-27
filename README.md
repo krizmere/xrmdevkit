@@ -10,6 +10,7 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 
 # Check if git is installed properly, clone repository and run script
 git --version
+cd $HOME; mkdir Repos -ErrorAction SilentlyContinue; cd Repos
 git clone https://github.com/krizmere/d365-crm-technical-essentials.git
 cd d365-crm-technical-essentials
 
