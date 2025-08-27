@@ -16,7 +16,7 @@ cd xrmdevkit
 
 # Enable winget configuration
 winget configure --enable
-winget configure -f d365-xrm-dev-kit.winget --accept-configuration-agreements
+winget configure -f xrmdevkit.winget --accept-configuration-agreements
 
 # Allow .ps1 scripts to run for this process only once then run the script
 # Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
