@@ -1,5 +1,4 @@
 # A PowerShell script to install all necessary tools for a D365 CE Developer
-
 # Check PowerShell version (requires 5.0 or later)
 if ($PSVersionTable.PSVersion.Major -lt 5) {
     Write-Error "This script requires PowerShell 5.0 or later. Please upgrade your PowerShell version."
@@ -29,7 +28,7 @@ Write-Host "`nInstalling Applications via Winget (Parallel)..." -ForegroundColor
 $wingetPackages = @(
     #"Microsoft.VisualStudioCode",
     #"Microsoft.VisualStudio.2022.Professional",
-    "Notepad++.Notepad++",
+    # "Microsoft.DotNet.SDK.8",
     #"OpenJS.NodeJS.LTS",
     #"Google.Chrome",
     #"Mozilla.Firefox",
@@ -37,10 +36,10 @@ $wingetPackages = @(
     #"Microsoft.Teams",
     #"Microsoft.AzureCLI",
     #"Microsoft.AzureDataStudio",
+    "Notepad++.Notepad++",
     "Telerik.Fiddler.Classic",
     "Postman.Postman",
     "7zip.7zip",
-    "Microsoft.DotNet.SDK.8",
     "MscrmTools.XrmToolBox",
     "Microsoft.PowerAppsCLI"
 )
