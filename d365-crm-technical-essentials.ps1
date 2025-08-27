@@ -11,7 +11,7 @@ $wingetPackages = @(
     "OpenJS.NodeJS.LTS",
     "Google.Chrome",
     "Mozilla.Firefox",
-    "Microsoft.PowerBI",
+    # "Microsoft.PowerBI", - if needed (800 MB, quite large)
     "Microsoft.Teams",
     "Microsoft.AzureCLI",
     "Microsoft.AzureDataStudio",
