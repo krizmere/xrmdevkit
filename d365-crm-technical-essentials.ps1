@@ -1,26 +1,32 @@
 # A PowerShell script to install all necessary tools for a D365 CE Developer
 Write-Host "Starting D365 Developer Machine Setup..." -ForegroundColor Green
-
-# 1. Install GUI Applications using Winget
 Write-Host "`nInstalling Applications via Winget..." -ForegroundColor Yellow
 
 # Visual Studio Code
 winget install --id=Microsoft.VisualStudioCode --silent --accept-package-agreements
 
-# XrmToolBox 
-winget install --id=MscrmTools.XrmToolBox --silent --accept-package-agreements
-
 # Node.js (LTS version for Power Platform CLI)
 winget install --id=OpenJS.NodeJS.LTS --silent --accept-package-agreements
 
-# Google Chrome
-winget install --id=Google.Chrome --silent --accept-package-agreements
+# XrmToolBox 
+winget install --id=MscrmTools.XrmToolBox --silent --accept-package-agreements
 
-# Azure Data Studio (Great for DB-related tasks)
+# Browsers for cross-browser development and testing. Assume Microsoft Edge is automatically installed in Windows.
+winget install --id=Google.Chrome --silent --accept-package-agreements
+winget install --id=Mozilla.Firefox --silent --accept-package-agreements
+
+# Communication
+winget install --id=Microsoft.Teams --silent --accept-package-agreements
+
+# Azure 
+winget install --id=Microsoft.AzureCLI --silent --accept-package-agreements
 winget install --id=Microsoft.AzureDataStudio --silent --accept-package-agreements
 
 # Git (If not already installed)
 winget install --id=Git.Git --silent --accept-package-agreements
+
+# Fiddler Classic
+winget install --id=Telerik.Fiddler.Classic --silent --accept-package-agreements
 
 # 7-Zip
 winget install --id=7zip.7zip --silent --accept-package-agreements
