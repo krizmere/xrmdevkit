@@ -5,8 +5,10 @@ Write-Host "`nInstalling Applications via Winget..." -ForegroundColor Yellow
 # Git (Uncomment if not already installed)
 # winget install --id=Git.Git --silent --accept-package-agreements --accept-source-agreements
 
-# Visual Studio Code
+# IDEs & Code Editors
 winget install --id=Microsoft.VisualStudioCode --silent --accept-package-agreements --accept-source-agreements
+winget install --id=Microsoft.VisualStudio.2022.Professional --silent --accept-package-agreements --accept-source-agreements
+winget install --id=Notepad++.Notepad++ --silent --accept-package-agreements --accept-source-agreements
 
 # Node.js (LTS version for Power Platform CLI)
 winget install --id=OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements
@@ -17,6 +19,9 @@ winget install --id=MscrmTools.XrmToolBox --silent --accept-package-agreements -
 # Browsers for cross-browser development and testing. Assume Microsoft Edge is automatically installed in Windows.
 winget install --id=Google.Chrome --silent --accept-package-agreements --accept-source-agreements
 winget install --id=Mozilla.Firefox --silent --accept-package-agreements --accept-source-agreements
+
+# Power BI Desktop
+winget install --id=Microsoft.PowerBI --silent --accept-package-agreements --accept-source-agreements
 
 # Microsoft Teams
 winget install --id=Microsoft.Teams --silent --accept-package-agreements --accept-source-agreements
