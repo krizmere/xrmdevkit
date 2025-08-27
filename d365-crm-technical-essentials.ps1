@@ -1,44 +1,83 @@
 # A PowerShell script to install all necessary tools for a D365 CE Developer
 Write-Host "Starting D365 Developer Machine Setup..." -ForegroundColor Green
-Write-Host "`nInstalling Applications via Winget..." -ForegroundColor Yellow
+Write-Host "`nInstalling Applications via Winget (Parallel)..." -ForegroundColor Yellow
 
-# Git (Uncomment if not already installed)
-# winget install --id=Git.Git --silent --accept-package-agreements --accept-source-agreements
+# List of winget packages to install
+$wingetPackages = @(
+    "Microsoft.VisualStudioCode",
+    "Microsoft.VisualStudio.2022.Professional",
+    "Notepad++.Notepad++",
+    "OpenJS.NodeJS.LTS",
+    "Google.Chrome",
+    "Mozilla.Firefox",
+    "Microsoft.PowerBI",
+    "Microsoft.Teams",
+    "Microsoft.AzureCLI",
+    "Microsoft.AzureDataStudio",
+    "Telerik.Fiddler.Classic",
+    "Postman.Postman",
+    "7zip.7zip",
+    "Microsoft.DotNet.SDK.8",
+    "MscrmTools.XrmToolBox",
+    "Microsoft.PowerAppsCLI"
+)
 
-# IDEs & Code Editors
-winget install --id=Microsoft.VisualStudioCode --silent --accept-package-agreements --accept-source-agreements
-winget install --id=Microsoft.VisualStudio.2022.Professional --silent --accept-package-agreements --accept-source-agreements
-winget install --id=Notepad++.Notepad++ --silent --accept-package-agreements --accept-source-agreements
+# Function to install a single package
+function Install-WingetPackage {
+    param($packageId)
+    try {
+        Write-Host "Installing $packageId..." -ForegroundColor Cyan
+        winget install --id=$packageId --silent --accept-package-agreements --accept-source-agreements
+        Write-Host "✓ $packageId installed successfully" -ForegroundColor Green
+        return $true
+    }
+    catch {
+        Write-Warning "Failed to install $packageId : $($_.Exception.Message)"
+        return $false
+    }
+}
 
-# Node.js (LTS version for Power Platform CLI)
-winget install --id=OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements
+# Install packages in parallel with limited concurrency
+$maxConcurrent = 4 # Adjust based on your system capabilities
+$jobs = @()
+$completed = 0
+$total = $wingetPackages.Count
 
-# Browsers for cross-browser development and testing. Assume Microsoft Edge is automatically installed in Windows.
-winget install --id=Google.Chrome --silent --accept-package-agreements --accept-source-agreements
-winget install --id=Mozilla.Firefox --silent --accept-package-agreements --accept-source-agreements
+foreach ($package in $wingetPackages) {
+    while ((Get-Job -State Running).Count -ge $maxConcurrent) {
+        Start-Sleep -Seconds 2
+        # Check for completed jobs and output their results
+        Get-Job -State Completed | ForEach-Object {
+            $result = Receive-Job $_
+            if ($result) { $completed++ }
+            Remove-Job $_
+        }
+    }
+    
+    $jobs += Start-Job -ScriptBlock ${function:Install-WingetPackage} -ArgumentList $package -Name "Install-$package"
+    Write-Progress -Activity "Installing Packages" -Status "Queued: $package" -PercentComplete (($jobs.Count / $total) * 100)
+}
 
-# Power BI Desktop
-winget install --id=Microsoft.PowerBI --silent --accept-package-agreements --accept-source-agreements
+# Wait for all jobs to complete and collect results
+Write-Host "`nWaiting for installations to complete..." -ForegroundColor Yellow
+while (Get-Job -State Running) {
+    $running = (Get-Job -State Running).Count
+    $done = $total - $running
+    Write-Progress -Activity "Installing Packages" -Status "$done of $total completed ($running running)" -PercentComplete (($done / $total) * 100)
+    Start-Sleep -Seconds 5
+}
 
-# Microsoft Teams
-winget install --id=Microsoft.Teams --silent --accept-package-agreements --accept-source-agreements
+# Process results
+$successCount = 0
+Get-Job | ForEach-Object {
+    $result = Receive-Job $_
+    if ($result) { $successCount++ }
+    Remove-Job $_
+}
 
-# Azure
-winget install --id=Microsoft.AzureCLI --silent --accept-package-agreements --accept-source-agreements
-winget install --id=Microsoft.AzureDataStudio --silent --accept-package-agreements --accept-source-agreements
+Write-Host "`nInstallation completed: $successCount of $total packages installed successfully" -ForegroundColor Green
 
-# Fiddler Classic + Postman for web debugging and testing
-winget install --id=Telerik.Fiddler.Classic --silent --accept-package-agreements --accept-source-agreements
-winget install --id=Postman.Postman --silent --accept-package-agreements --accept-source-agreements
-
-# 7-Zip
-winget install --id=7zip.7zip --silent --accept-package-agreements --accept-source-agreements
-
-# .NET SDKs
-winget install --id=Microsoft.DotNet.SDK.8 --silent --accept-package-agreements --accept-source-agreements
-
-# XrmToolBox 
-winget install --id=MscrmTools.XrmToolBox --silent --accept-package-agreements --accept-source-agreements
+# XrmToolBox shortcut creation (must run sequentially)
 $exe = Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages" -Recurse -Include "XrmToolBox.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
 if ($exe) {
     $startMenu = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs"
@@ -49,44 +88,38 @@ if ($exe) {
     $sc.WorkingDirectory = $exe.DirectoryName
     $sc.IconLocation = $exe.FullName
     $sc.Save()
-    Write-Host "Shortcut created: $shortcutPath"
+    Write-Host "Shortcut created: $shortcutPath" -ForegroundColor Green
 } else {
     Write-Warning "XrmToolBox.exe not found under WinGet packages."
 }
 
-# Power Apps CLI
-winget install --id Microsoft.PowerAppsCLI --silent --accept-package-agreements --accept-source-agreements
-
-# Update Path Environment Variable (Refreshes so 'pac' command is recognized)
-#$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+# Update Path Environment Variable
 $env:PATH += ";$([Environment]::GetFolderPath('LocalApplicationData'))\Microsoft\PowerAppsCLI"
 Set-Location $env:USERPROFILE
+
 # Initialize Power Apps CLI 
 Write-Host "`nSetting up Power Apps CLI..." -ForegroundColor Yellow
 pac install latest
 
-# Helper function to pre-download Dataverse tools via pac (prevents UI sticking around)
+# Helper function to pre-download Dataverse tools via pac
 function Ensure-PacTool {
     param([ValidateSet('prt','cmt','pd')]$Name)
-
-    Write-Host "Ensuring pac tool '$Name' is downloaded/updated..."
-    # --update forces grab of the latest from NuGet; first run downloads if missing
+    Write-Host "Ensuring pac tool '$Name' is downloaded/updated..." -ForegroundColor Cyan
     $p = Start-Process -FilePath "pac.exe" -ArgumentList "tool $Name --update" -WindowStyle Hidden -PassThru
     $p.WaitForExit()
-
-    # If a UI launched, close it quietly so the script continues unattended
+    
     $uiMap = @{ prt='PluginRegistration'; cmt='Microsoft.Xrm.Tooling.ConfigurationMigration.WpfApp'; pd='PackageDeployer' }
     $ui = $uiMap[$Name]
     if ($ui) { Get-Process -Name $ui -ErrorAction SilentlyContinue | Stop-Process -Force }
 }
 
-# 5) Pre-download the usual Dataverse tools and list them to ensure they are installed correctly
-Ensure-PacTool prt   # Plug-in Registration Tool
-Ensure-PacTool cmt   # Configuration Migration Tool
-Ensure-PacTool pd    # Package Deployer
+# Pre-download Dataverse tools
+Ensure-PacTool prt
+Ensure-PacTool cmt
+Ensure-PacTool pd
 pac tool list
 
-# Install PowerApps modules. This might require enabling TLS1.2 for older PowerShell versions
+# Install PowerApps modules
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Install-Module -Name Microsoft.PowerApps.Administration.PowerShell -Force -AllowClobber
 Install-Module -Name Microsoft.PowerApps.PowerShell -Force -AllowClobber
