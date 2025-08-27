@@ -1,6 +1,15 @@
 # Dynamics 365 CE Technical Consultant Essentials
 A starting kit for a new device for Dynamics 365 CRM development. Contains scripts to install the necessary tools to get started.
 
+# How To Use
+Copy and paste this command into Powershell (administrator) on a fresh Windows instance.
+```
+winget install Git.Git
+git clone https://github.com/krizmere/d365-crm-technical-essentials.git
+cd d365-crm-technical-essentials
+.\d365-crm-technical-essentials.ps1
+```
+
 ## Consulting
 | Tool  | Description | Free/Paid |
 | :-- | :-- | :-- |
