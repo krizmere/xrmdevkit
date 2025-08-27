@@ -7,6 +7,7 @@ $wingetPackages = @(
     "Microsoft.VisualStudioCode",
     "Microsoft.VisualStudio.2022.Professional",
     "Notepad++.Notepad++",
+    "PDFgear.PDFgear",
     "OpenJS.NodeJS.LTS",
     "Google.Chrome",
     "Mozilla.Firefox",
