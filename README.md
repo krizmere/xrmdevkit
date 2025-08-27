@@ -45,7 +45,6 @@ Setup browser profiles per client for easier management of different environment
   * FetchXml Tester
   * Security Role
 * [Fiddler](https://www.telerik.com/download/fiddler)
-* [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
 * [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&pivots=winget)
 
 
