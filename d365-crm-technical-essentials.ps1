@@ -13,9 +13,6 @@ winget install --id=Notepad++.Notepad++ --silent --accept-package-agreements --a
 # Node.js (LTS version for Power Platform CLI)
 winget install --id=OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements
 
-# XrmToolBox 
-winget install --id=MscrmTools.XrmToolBox --silent --accept-package-agreements --accept-source-agreements
-
 # Browsers for cross-browser development and testing. Assume Microsoft Edge is automatically installed in Windows.
 winget install --id=Google.Chrome --silent --accept-package-agreements --accept-source-agreements
 winget install --id=Mozilla.Firefox --silent --accept-package-agreements --accept-source-agreements
@@ -38,6 +35,23 @@ winget install --id=7zip.7zip --silent --accept-package-agreements --accept-sour
 
 # .NET SDKs
 winget install --id=Microsoft.DotNet.SDK.8 --silent --accept-package-agreements --accept-source-agreements
+
+# XrmToolBox 
+winget install --id=MscrmTools.XrmToolBox --silent --accept-package-agreements --accept-source-agreements
+$exe = Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages" -Recurse -Include "XrmToolBox.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($exe) {
+    $startMenu = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs"
+    $shortcutPath = Join-Path $startMenu "XrmToolBox.lnk"
+    $w = New-Object -ComObject WScript.Shell
+    $sc = $w.CreateShortcut($shortcutPath)
+    $sc.TargetPath = $exe.FullName
+    $sc.WorkingDirectory = $exe.DirectoryName
+    $sc.IconLocation = $exe.FullName
+    $sc.Save()
+    Write-Host "Shortcut created: $shortcutPath"
+} else {
+    Write-Warning "XrmToolBox.exe not found under WinGet packages."
+}
 
 # Power Apps CLI
 winget install --id Microsoft.PowerAppsCLI --silent --accept-package-agreements --accept-source-agreements
