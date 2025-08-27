@@ -2,52 +2,72 @@
 Write-Host "Starting D365 Developer Machine Setup..." -ForegroundColor Green
 Write-Host "`nInstalling Applications via Winget..." -ForegroundColor Yellow
 
+# Git (Uncomment if not already installed)
+# winget install --id=Git.Git --silent --accept-package-agreements --accept-source-agreements
+
 # Visual Studio Code
-winget install --id=Microsoft.VisualStudioCode --silent --accept-package-agreements
+winget install --id=Microsoft.VisualStudioCode --silent --accept-package-agreements --accept-source-agreements
 
 # Node.js (LTS version for Power Platform CLI)
-winget install --id=OpenJS.NodeJS.LTS --silent --accept-package-agreements
+winget install --id=OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements
 
 # XrmToolBox 
-winget install --id=MscrmTools.XrmToolBox --silent --accept-package-agreements
+winget install --id=MscrmTools.XrmToolBox --silent --accept-package-agreements --accept-source-agreements
 
 # Browsers for cross-browser development and testing. Assume Microsoft Edge is automatically installed in Windows.
-winget install --id=Google.Chrome --silent --accept-package-agreements
-winget install --id=Mozilla.Firefox --silent --accept-package-agreements
+winget install --id=Google.Chrome --silent --accept-package-agreements --accept-source-agreements
+winget install --id=Mozilla.Firefox --silent --accept-package-agreements --accept-source-agreements
 
-# Communication
-winget install --id=Microsoft.Teams --silent --accept-package-agreements
+# Microsoft Teams
+winget install --id=Microsoft.Teams --silent --accept-package-agreements --accept-source-agreements
 
-# Azure 
-winget install --id=Microsoft.AzureCLI --silent --accept-package-agreements
-winget install --id=Microsoft.AzureDataStudio --silent --accept-package-agreements
-
-# Git (If not already installed)
-winget install --id=Git.Git --silent --accept-package-agreements
+# Azure
+winget install --id=Microsoft.AzureCLI --silent --accept-package-agreements --accept-source-agreements
+winget install --id=Microsoft.AzureDataStudio --silent --accept-package-agreements --accept-source-agreements
 
 # Fiddler Classic
-winget install --id=Telerik.Fiddler.Classic --silent --accept-package-agreements
+winget install --id=Telerik.Fiddler.Classic --silent --accept-package-agreements --accept-source-agreements
 
 # 7-Zip
-winget install --id=7zip.7zip --silent --accept-package-agreements
+winget install --id=7zip.7zip --silent --accept-package-agreements --accept-source-agreements
 
-# 2. Install PowerShell Modules
-Write-Host "`nInstalling PowerShell Modules..." -ForegroundColor Yellow
+# .NET SDKs
+winget install --id=Microsoft.DotNet.SDK.8 --silent --accept-package-agreements --accept-source-agreements
 
-# Microsoft's Power Apps CLI
-# This might require enabling TLS1.2 for older PowerShell versions
+# Power Apps CLI
+winget install --id Microsoft.PowerAppsCLI --silent --accept-package-agreements --accept-source-agreements
+
+# Update Path Environment Variable (Refreshes so 'pac' command is recognized)
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+# Initialize Power Apps CLI 
+Write-Host "`nSetting up Power Apps CLI..." -ForegroundColor Yellow
+pac install latest
+
+# Helper function to pre-download Dataverse tools via pac (prevents UI sticking around)
+function Ensure-PacTool {
+    param([ValidateSet('prt','cmt','pd')]$Name)
+
+    Write-Host "Ensuring pac tool '$Name' is downloaded/updated..."
+    # --update forces grab of the latest from NuGet; first run downloads if missing
+    $p = Start-Process -FilePath "pac.exe" -ArgumentList "tool $Name --update" -WindowStyle Hidden -PassThru
+    $p.WaitForExit()
+
+    # If a UI launched, close it quietly so the script continues unattended
+    $uiMap = @{ prt='PluginRegistration'; cmt='Microsoft.Xrm.Tooling.ConfigurationMigration.WpfApp'; pd='PackageDeployer' }
+    $ui = $uiMap[$Name]
+    if ($ui) { Get-Process -Name $ui -ErrorAction SilentlyContinue | Stop-Process -Force }
+}
+
+# 5) Pre-download the usual Dataverse tools and list them to ensure they are installed correctly
+Ensure-PacTool prt   # Plug-in Registration Tool
+Ensure-PacTool cmt   # Configuration Migration Tool
+Ensure-PacTool pd    # Package Deployer
+pac tool list
+
+# Install PowerApps modules. This might require enabling TLS1.2 for older PowerShell versions
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Install-Module -Name Microsoft.PowerApps.Administration.PowerShell -Force -AllowClobber
 Install-Module -Name Microsoft.PowerApps.PowerShell -Force -AllowClobber
-
-# 3. Install .NET SDKs
-winget install --id=Microsoft.DotNet.SDK.8 --silent --accept-package-agreements
-
-# 4. Update Path Environment Variable (Refreshes so 'pac' command is recognized)
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-
-# 5. Initialize Power Apps CLI 
-Write-Host "`nSetting up Power Apps CLI..." -ForegroundColor Yellow
-pac install latest
 
 Write-Host "`nSetup Complete! Please restart your shell or machine for all changes to take full effect." -ForegroundColor Green
