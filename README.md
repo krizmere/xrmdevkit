@@ -4,9 +4,6 @@ A starting kit for a new device for Dynamics 365 CRM development. Contains scrip
 # How To Use
 Copy and paste these commands into Powershell (administrator) on a fresh Windows instance.
 ```
-# Allow .ps1 scripts to run for this process only once
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-
 # Install Git and refresh PATH
 winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
@@ -15,6 +12,9 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 git --version
 git clone https://github.com/krizmere/d365-crm-technical-essentials.git
 cd d365-crm-technical-essentials
+
+# Allow .ps1 scripts to run for this process only once
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
 .\d365-crm-technical-essentials.ps1
 ```
 
