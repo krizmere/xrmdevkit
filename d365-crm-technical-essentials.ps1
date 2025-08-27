@@ -4,17 +4,16 @@ Write-Host "`nInstalling Applications via Winget (Parallel)..." -ForegroundColor
 
 # List of winget packages to install
 $wingetPackages = @(
-    "Microsoft.VisualStudioCode",
-    "Microsoft.VisualStudio.2022.Professional",
+    #"Microsoft.VisualStudioCode",
+    #"Microsoft.VisualStudio.2022.Professional",
     "Notepad++.Notepad++",
-    "PDFgear.PDFgear",
-    "OpenJS.NodeJS.LTS",
-    "Google.Chrome",
-    "Mozilla.Firefox",
-    # "Microsoft.PowerBI", - if needed (800 MB, quite large)
-    "Microsoft.Teams",
-    "Microsoft.AzureCLI",
-    "Microsoft.AzureDataStudio",
+    #"OpenJS.NodeJS.LTS",
+    #"Google.Chrome",
+    #"Mozilla.Firefox",
+    #"Microsoft.PowerBI",
+    #"Microsoft.Teams",
+    #"Microsoft.AzureCLI",
+    #"Microsoft.AzureDataStudio",
     "Telerik.Fiddler.Classic",
     "Postman.Postman",
     "7zip.7zip",
@@ -45,24 +44,28 @@ $completed = 0
 $total = $wingetPackages.Count
 
 foreach ($package in $wingetPackages) {
-    while ((Get-Job -State Running).Count -ge $maxConcurrent) {
+    # Wait if we have too many concurrent jobs
+    while (($jobs | Where-Object { $_.State -eq 'Running' }).Count -ge $maxConcurrent) {
         Start-Sleep -Seconds 2
         # Check for completed jobs and output their results
-        Get-Job -State Completed | ForEach-Object {
-            $result = Receive-Job $_
+        $completedJobs = $jobs | Where-Object { $_.State -eq 'Completed' }
+        foreach ($job in $completedJobs) {
+            $result = Receive-Job $job
             if ($result) { $completed++ }
-            Remove-Job $_
+            Remove-Job $job
+            $jobs = $jobs | Where-Object { $_.Id -ne $job.Id }
         }
     }
     
-    $jobs += Start-Job -ScriptBlock ${function:Install-WingetPackage} -ArgumentList $package -Name "Install-$package"
+    $job = Start-Job -ScriptBlock ${function:Install-WingetPackage} -ArgumentList $package -Name "Install-$package"
+    $jobs += $job
     Write-Progress -Activity "Installing Packages" -Status "Queued: $package" -PercentComplete (($jobs.Count / $total) * 100)
 }
 
 # Wait for all jobs to complete and collect results
 Write-Host "`nWaiting for installations to complete..." -ForegroundColor Yellow
-while (Get-Job -State Running) {
-    $running = (Get-Job -State Running).Count
+while (($jobs | Where-Object { $_.State -eq 'Running' }).Count -gt 0) {
+    $running = ($jobs | Where-Object { $_.State -eq 'Running' }).Count
     $done = $total - $running
     Write-Progress -Activity "Installing Packages" -Status "$done of $total completed ($running running)" -PercentComplete (($done / $total) * 100)
     Start-Sleep -Seconds 5
@@ -70,10 +73,10 @@ while (Get-Job -State Running) {
 
 # Process results
 $successCount = 0
-Get-Job | ForEach-Object {
-    $result = Receive-Job $_
+foreach ($job in $jobs) {
+    $result = Receive-Job $job
     if ($result) { $successCount++ }
-    Remove-Job $_
+    Remove-Job $job
 }
 
 Write-Host "`nInstallation completed: $successCount of $total packages installed successfully" -ForegroundColor Green
