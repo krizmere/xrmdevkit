@@ -14,7 +14,7 @@ git clone https://github.com/krizmere/d365-crm-technical-essentials.git
 cd d365-crm-technical-essentials
 
 # Allow .ps1 scripts to run for this process only once
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 .\d365-crm-technical-essentials.ps1
 ```
 
