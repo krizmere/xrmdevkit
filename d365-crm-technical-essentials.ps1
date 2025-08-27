@@ -27,8 +27,9 @@ winget install --id=Microsoft.Teams --silent --accept-package-agreements --accep
 winget install --id=Microsoft.AzureCLI --silent --accept-package-agreements --accept-source-agreements
 winget install --id=Microsoft.AzureDataStudio --silent --accept-package-agreements --accept-source-agreements
 
-# Fiddler Classic
+# Fiddler Classic + Postman for web debugging and testing
 winget install --id=Telerik.Fiddler.Classic --silent --accept-package-agreements --accept-source-agreements
+winget install --id=Postman.Postman --silent --accept-package-agreements --accept-source-agreements
 
 # 7-Zip
 winget install --id=7zip.7zip --silent --accept-package-agreements --accept-source-agreements
