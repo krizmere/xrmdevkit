@@ -11,8 +11,8 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 # Check if git is installed properly, create local Repo folder to clone repository then change directory
 git --version
 cd $HOME; mkdir -p Repos; cd Repos
-git clone https://github.com/krizmere/d365-crm-technical-essentials.git
-cd d365-crm-technical-essentials
+git clone https://github.com/krizmere/xrmdevkit.git
+cd xrmdevkit
 
 # Enable winget configuration
 winget configure --enable
@@ -38,21 +38,25 @@ Setup browser profiles per client for easier management of different environment
 | DarkReader  | Reliable dark mode across all sites. | Free Extension |
 
 ## Developer Tools
-* [Visual Studio (Latest) Professional/Enterprise](https://visualstudio.microsoft.com/downloads/)
-* [Visual Studio Code](https://visualstudio.microsoft.com/downloads/)
-* [Dataverse Core Tools](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/download-tools-nuget)
-* [Power Platform CLI](https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction?tabs=windows)
-* [Node.js](https://nodejs.org/en/download/)
-* [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-* [Postman](https://www.postman.com/)
-* [XrmToolBox](https://www.xrmtoolbox.com/)
-  * Early Bound Generator
-  * FetchXml Tester
-  * Security Role
-* [Fiddler](https://www.telerik.com/download/fiddler)
-* [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&pivots=winget)
-
-
+* IDEs
+  * [Visual Studio Professional/Enterprise](https://visualstudio.microsoft.com/downloads/)
+  * [Visual Studio Code](https://visualstudio.microsoft.com/downloads/)
+* SDKs
+  * [.NET SDK 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+  * [.NET SDK 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+  * [.NET SDK 10](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
+  * [Node.js](https://nodejs.org/en/download/)
+  * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+* CLIs
+  * [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&pivots=winget)
+  * [Power Platform CLI](https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction?tabs=windows)
+* XRM Tooling
+  * [Dataverse Core Tools](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/download-tools-nuget)
+  * [XrmToolBox](https://www.xrmtoolbox.com/)
+* Web Debugging + Tooling
+  * [Fiddler](https://www.telerik.com/download/fiddler)
+  * [Postman](https://www.postman.com/)
+    
 ## Nuget
 * FakeXrmEasy
 
