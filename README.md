@@ -67,7 +67,20 @@ Setup browser profiles per client for easier management of different environment
 * FakeXrmEasy
 
 ## Visual Studio Code Extensions
+* [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+* [PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.powershell)
 * [Power Platform Tools](https://marketplace.visualstudio.com/items?itemName=microsoft-IsvExpTools.powerplatform-vscode)
+* [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
+* [Azure Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack)
+* [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+* [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+* [Live Preview](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server)
+* [SQL Server](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
+* [Azure Repos](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-repos)
+* [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+* [WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+* [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+* [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 
 ## npm
 * [jest](https://jestjs.io/)
