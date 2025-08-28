@@ -67,6 +67,7 @@ Setup browser profiles per client for easier management of different environment
 | Name  | Description | Performance |
 | :-- | :-- | :-- |
 | [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)  | Adds support for C# development, including IntelliSense, debugging, and project management for .NET applications. | Light, unless using large projects or Intellisense-heavy features |
+| [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) | Adds support for Python development, including IntelliSense, debugging, refactoring, explorers and more. | Light, unless using large projects or Intellisense-heavy features |
 | [PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.powershell) | Provides syntax highlighting, IntelliSense, and debugging for PowerShell scripts. | Light |
 | [Power Platform Tools](https://marketplace.visualstudio.com/items?itemName=microsoft-IsvExpTools.powerplatform-vscode)  | Integrates Power Apps, Power Automate, and Dataverse development into VS Code, including CLI and ALM support. | Light |
 | [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) | Enables development, debugging, and deployment of serverless Azure Functions. | Moderate |
