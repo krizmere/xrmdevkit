@@ -4,13 +4,6 @@ properties:
   configurationVersion: 0.2.0
   resources:
   - directives:
-      description: PowerShell
-      allowPrerelease: true
-    resource: Microsoft.WinGet.DSC/WinGetPackage
-    settings:
-      id: Microsoft.PowerShell
-      source: winget
-  - directives:
       description: Microsoft Visual Studio Code
       allowPrerelease: true
     resource: Microsoft.WinGet.DSC/WinGetPackage
@@ -23,41 +16,6 @@ properties:
     resource: Microsoft.WinGet.DSC/WinGetPackage
     settings:
       id: Microsoft.VisualStudio.2022.Professional
-      source: winget
-  - directives:
-      description: Microsoft .NET SDK 6.0
-      allowPrerelease: true
-    resource: Microsoft.WinGet.DSC/WinGetPackage
-    settings:
-      id: Microsoft.DotNet.SDK.6
-      source: winget
-  - directives:
-      description: Microsoft .NET SDK 8.0
-      allowPrerelease: true
-    resource: Microsoft.WinGet.DSC/WinGetPackage
-    settings:
-      id: Microsoft.DotNet.SDK.8
-      source: winget
-  - directives:
-      description: Microsoft .NET SDK 10.0 Preview
-      allowPrerelease: true
-    resource: Microsoft.WinGet.DSC/WinGetPackage
-    settings:
-      id: Microsoft.DotNet.SDK.Preview
-      source: winget
-  - directives:
-      description: Microsoft Office
-      allowPrerelease: true
-    resource: Microsoft.WinGet.DSC/WinGetPackage
-    settings:
-      id: Microsoft.Office
-      source: winget
-  - directives:
-      description: PDFgear
-      allowPrerelease: true
-    resource: Microsoft.WinGet.DSC/WinGetPackage
-    settings:
-      id: PDFgear.PDFgear
       source: winget
   - directives:
       description: Microsoft PowerApps CLI
