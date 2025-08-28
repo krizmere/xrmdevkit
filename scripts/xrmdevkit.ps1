@@ -54,7 +54,7 @@ Write-Host "Modifying Visual Studio 2022 Professional. Adding Workloads and Pack
     modify `
     --installPath "C:\Program Files\Microsoft Visual Studio\2022\Professional" `
     --config ".config\.vsconfig" `
-    --quiet `
+    --passive `
     --allowUnsignedExtensions `
     2>&1 | Where-Object { $_ -match "error" -or $_ -match "failed" }
 Write-Host "Completed Visual Studio 2022 Professional modification." -ForegroundColor Green
@@ -74,6 +74,7 @@ try {
    
 # Install Visual Studio Code extensions from extensions.json
 Write-Host "Installing VS Code extensions..." -ForegroundColor Yellow
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 $extensions = (Get-Content ".\.config\extensions.json" | ConvertFrom-Json).recommendations
 foreach ($ext in $extensions) {
     code --install-extension $ext --force

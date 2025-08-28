@@ -2,13 +2,13 @@
 A starting kit for a new device for Dynamics 365 CRM development. Contains scripts to install the necessary tools to get started.
 
 # How To Use
-Copy and paste these commands into Powershell (administrator) on a fresh Windows instance.
+Open Powershell (administrator) on a fresh Windows instance and copy + paste the commands below.
 ```
 # Run command once independently
 winget configure --enable
 ```
 ```
-# Install Git and refresh PATH. Comment out if Git is already installed
+# Install Git and refresh PATH. Skip if Git is already installed.
 winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
