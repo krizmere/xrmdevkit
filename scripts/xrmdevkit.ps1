@@ -57,6 +57,7 @@ Write-Host "Modifying Visual Studio 2022 Professional. Adding Workloads and Pack
     --quiet `
     --allowUnsignedExtensions `
     2>&1 | Where-Object { $_ -match "error" -or $_ -match "failed" }
+Get-Content (Get-ChildItem "$env:TEMP\dd_setup_*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName | Select-String -Pattern "Error|Failed"
 
 # Install Dataverse Core Tools, update Path Environment Variable permanently
 Write-Host "Installing Dataverse Core Tools. Updating PATH environment variable." -ForegroundColor Green

@@ -4,14 +4,19 @@ A starting kit for a new device for Dynamics 365 CRM development. Contains scrip
 # How To Use
 Copy and paste these commands into Powershell (administrator) on a fresh Windows instance.
 ```
-# Install Git and refresh PATH. Comment out if Git is already installed
+# Run command once independently
 winget configure --enable
+```
+```
+# Install Git and refresh PATH. Comment out if Git is already installed
 winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
 # Check if git is installed properly, create local Repo folder to clone repository then change directory
 git --version
-cd $HOME; mkdir -p Repos; cd Repos
+cd $HOME
+if (-not (Test-Path "Repos")) { mkdir Repos }
+cd Repos
 git clone https://github.com/krizmere/xrmdevkit.git
 cd xrmdevkit
 
