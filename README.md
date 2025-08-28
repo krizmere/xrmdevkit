@@ -45,8 +45,8 @@ Setup browser profiles per client for easier management of different environment
 
 ## Developer Tools
 * IDEs
-  * [Visual Studio Professional/Enterprise](https://visualstudio.microsoft.com/downloads/) + Workloads/Components
-  * [Visual Studio Code](https://visualstudio.microsoft.com/downloads/) + Extensions
+  * [Visual Studio Professional/Enterprise](https://visualstudio.microsoft.com/downloads/)
+  * [Visual Studio Code](https://visualstudio.microsoft.com/downloads/)
 * SDKs
   * [.NET SDK 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
   * [.NET SDK 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
@@ -62,26 +62,28 @@ Setup browser profiles per client for easier management of different environment
 * Web Debugging + Tooling
   * [Fiddler](https://www.telerik.com/download/fiddler)
   * [Postman](https://www.postman.com/)
-    
-## Nuget
-* FakeXrmEasy
 
 ## Visual Studio Code Extensions
-* [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
-* [PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.powershell)
-* [Power Platform Tools](https://marketplace.visualstudio.com/items?itemName=microsoft-IsvExpTools.powerplatform-vscode)
-* [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
-* [Azure Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack)
-* [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-* [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-* [Live Preview](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server)
-* [SQL Server](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
-* [Azure Repos](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-repos)
-* [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
-* [WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
-* [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-* [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
-
+| Name  | Description | Performance |
+| :-- | :-- | :-- |
+| [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)  | Adds support for C# development, including IntelliSense, debugging, and project management for .NET applications. | Light, unless using large projects or Intellisense-heavy features |
+| [PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.powershell) | Provides syntax highlighting, IntelliSense, and debugging for PowerShell scripts. | Light |
+| [Power Platform Tools](https://marketplace.visualstudio.com/items?itemName=microsoft-IsvExpTools.powerplatform-vscode)  | Integrates Power Apps, Power Automate, and Dataverse development into VS Code, including CLI and ALM support. | Light |
+| [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) | Enables development, debugging, and deployment of serverless Azure Functions. | Moderate |
+| [Azure Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack) | Used for deploying, monitoring or managing Azure resources, includes multiple sub-extensions. | Heavy. Disable if not using frequently. |
+| [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) | Lints JavaScript/TypeScript code to catch errors, enforce style rules, and improve code quality. | Moderate, actively analyzes JS/TS files |
+| [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) | Automatically formats code for consistent style across files and projects. | Light |
+| [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) | Useful for managing repos from Azure DevOps | Light |
+| [Live Preview](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server) | Allows preview of HTML, CSS, and JavaScript changes in real-time inside VS Code. | Light, mostly idle until previewing |
+| [Azure Repos](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-repos) | Integrates Azure DevOps Git repositories for source control management inside. | Light |
+| [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) | Enhances Git capabilities with detailed history, blame annotations, and repository insights. | Light |
+| [SQL Server](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql) | Connects to SQL Server or Azure SQL databases, allowing T-SQL queries, IntelliSense, and result exports. | Light, can disable if not writing SQL frequently. |
+| [WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) | Integrates Windows Subsystem for Linux into VS Code for Linux-based development workflows. | Moderate |
+| [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) | Provides containerized development environments for reproducible and isolated setups. | Moderate |
+  
+## Nuget
+* FakeXrmEasy
+  
 ## npm
 * [jest](https://jestjs.io/)
 * [xrm-mock](https://www.npmjs.com/package/xrm-mock)
