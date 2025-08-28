@@ -54,6 +54,13 @@ Write-Host "Modifying Visual Studio 2022 Professional. Adding Workloads and Pack
 # winget install --id Microsoft.DotNet.Framework.DeveloperPack_4.6.2 --exact --accept-package-agreements --accept-source-agreements
 # winget install --id Microsoft.DotNet.Framework.DeveloperPack_4.7.2 --exact --accept-package-agreements --accept-source-agreements
 
+# Install Visual Studio Code extensions from extensions.json
+Write-Host "Installing VS Code extensions..."
+$extensions = (Get-Content ".\.config\extensions.json" | ConvertFrom-Json).recommendations
+foreach ($ext in $extensions) {
+    code --install-extension $ext --force
+}
+
 # Install Dataverse Core Tools, update Path Environment Variable permanently
 Write-Host "Installing Dataverse Core Tools. Updating PATH environment variable." -ForegroundColor Green
 $powerAppsCliPath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Microsoft\PowerAppsCLI"

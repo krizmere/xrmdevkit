@@ -74,6 +74,20 @@ properties:
       id: Microsoft.Teams
       source: winget
   - directives:
+      description: Microsoft Office
+      allowPrerelease: true
+    resource: Microsoft.WinGet.DSC/WinGetPackage
+    settings:
+      id: Microsoft.Office
+      source: winget
+  - directives:
+      description: PDFgear
+      allowPrerelease: true
+    resource: Microsoft.WinGet.DSC/WinGetPackage
+    settings:
+      id: PDFgear.PDFgear
+      source: winget
+  - directives:
       description: Microsoft Azure CLI
       allowPrerelease: true
     resource: Microsoft.WinGet.DSC/WinGetPackage
