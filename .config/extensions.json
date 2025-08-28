@@ -4,9 +4,7 @@
     "ms-vscode.powershell",
     "ms-python.python",
 
-    "microsoft-IsvExpTools.powerplatform-vscode",
-    "mrivastava.xrm-essentials",
-    
+    "microsoft-IsvExpTools.powerplatform-vscode",    
     "ms-azuretools.vscode-azurefunctions",
     "ms-vscode.vscode-node-azure-pack",
 
