@@ -16,11 +16,11 @@ cd xrmdevkit
 
 # Enable winget configuration
 winget configure --enable
-winget configure -f xrmdevkit.winget --accept-configuration-agreements
+winget configure -f .config/xrmdevkit.winget --accept-configuration-agreements
 
 # Allow .ps1 scripts to run for this process only once then run the script
-# Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-# .\d365-crm-technical-essentials.ps1
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+.\xrmdevkit.ps1
 ```
 
 ## Consulting
