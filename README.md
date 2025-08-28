@@ -20,7 +20,7 @@ winget configure -f .config/xrmdevkit.winget --accept-configuration-agreements
 
 # Allow .ps1 scripts to run for this process only once then run the script
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-.\xrmdevkit.ps1
+.\scripts\xrmdevkit.ps1
 ```
 
 ## Consulting
