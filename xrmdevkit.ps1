@@ -15,6 +15,7 @@ if (-not $isAdmin) {
 Write-Host "Starting D365 Developer Machine Setup..." -ForegroundColor Green
 
 # XrmToolBox shortcut creation
+Write-Host "Adding XrmToolBox shortcut to Start Menu" -ForegroundColor Green
 $possiblePaths = @(
     "$env:LOCALAPPDATA\Microsoft\WinGet\Packages",
     "${env:ProgramFiles(x86)}\MscrmTools",
@@ -32,11 +33,10 @@ foreach ($path in $possiblePaths) {
     }
 }
 
+# Create shortcut
 if ($exe) {
     $startMenu = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs"
     $shortcutPath = Join-Path $startMenu "XrmToolBox.lnk"
-    
-    # Create shortcut
     $w = New-Object -ComObject WScript.Shell
     $sc = $w.CreateShortcut($shortcutPath)
     $sc.TargetPath = $exe.FullName
@@ -49,11 +49,13 @@ if ($exe) {
 }
 
 # Install Visual Studio Workloads and Packs
+Write-Host "Modifying Visual Studio 2022 Professional. Adding Workloads and Packs from .config/.vsconfig" -ForegroundColor Green
 & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe" modify --installPath "C:\Program Files\Microsoft Visual Studio\2022\Professional" --config ".config/.vsconfig" --passive --allowUnsignedExtensions
 # winget install --id Microsoft.DotNet.Framework.DeveloperPack_4.6.2 --exact --accept-package-agreements --accept-source-agreements
 # winget install --id Microsoft.DotNet.Framework.DeveloperPack_4.7.2 --exact --accept-package-agreements --accept-source-agreements
 
-# Update Path Environment Variable permanently
+# Install Dataverse Core Tools, update Path Environment Variable permanently
+Write-Host "Installing Dataverse Core Tools. Updating PATH environment variable." -ForegroundColor Green
 $powerAppsCliPath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Microsoft\PowerAppsCLI"
 if (Test-Path $powerAppsCliPath) {
     $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
@@ -61,16 +63,13 @@ if (Test-Path $powerAppsCliPath) {
         [Environment]::SetEnvironmentVariable("Path", $currentPath + ";$powerAppsCliPath", "User")
         Write-Host "Added PowerAppsCLI to user PATH" -ForegroundColor Green
     }
-    
     # Also update current session PATH
     $env:PATH += ";$powerAppsCliPath"
+    pac tool prt
+    pac tool cmt
+    pac tool pd
+    pac tool list
 }
-
-# Download Dataverse Core Tools
-pac tool prt
-pac tool cmt
-pac tool pd
-pac tool list
 
 # Install PowerApps modules
 try {
