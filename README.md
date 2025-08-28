@@ -1,4 +1,4 @@
-# Dynamics 365 CE Technical Consultant Essentials
+# Dynamics 365 XRM Developer Kit
 A starting kit for a new device for Dynamics 365 CRM development. Contains scripts to install the necessary tools to get started.
 
 # How To Use
@@ -45,8 +45,8 @@ Setup browser profiles per client for easier management of different environment
 
 ## Developer Tools
 * IDEs
-  * [Visual Studio Professional/Enterprise](https://visualstudio.microsoft.com/downloads/)
-  * [Visual Studio Code](https://visualstudio.microsoft.com/downloads/)
+  * [Visual Studio Professional/Enterprise](https://visualstudio.microsoft.com/downloads/) + Workloads/Components
+  * [Visual Studio Code](https://visualstudio.microsoft.com/downloads/) + Extensions
 * SDKs
   * [.NET SDK 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
   * [.NET SDK 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
