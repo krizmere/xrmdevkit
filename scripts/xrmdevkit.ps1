@@ -49,7 +49,7 @@ if ($exe) {
 }
 
 # Install Visual Studio Workloads and Packs
-Write-Host "Modifying Visual Studio 2022 Professional. Adding Workloads and Packs from .config/.vsconfig" -ForegroundColor Yellow
+Write-Host "Modifying Visual Studio 2022 Professional using .vsconfig. Please wait for the installer to finish before the next step." -ForegroundColor Yellow
 & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe" `
     modify `
     --installPath "C:\Program Files\Microsoft Visual Studio\2022\Professional" `
@@ -57,7 +57,7 @@ Write-Host "Modifying Visual Studio 2022 Professional. Adding Workloads and Pack
     --passive `
     --allowUnsignedExtensions `
     2>&1 | Where-Object { $_ -match "error" -or $_ -match "failed" }
-Write-Host "Completed Visual Studio 2022 Professional modification." -ForegroundColor Green
+Write-Host "Completed adding workloads and packages to Visual Studio 2022 Professional." -ForegroundColor Green
 
 # Install PowerApps modules
 Write-Host "Installing PowerApps modules..." -ForegroundColor Yellow
@@ -67,7 +67,7 @@ try {
     Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
     Install-Module -Name Microsoft.PowerApps.Administration.PowerShell -Force -AllowClobber -ErrorAction Stop -Scope CurrentUser
     Install-Module -Name Microsoft.PowerApps.PowerShell -Force -AllowClobber -ErrorAction Stop -Scope CurrentUser
-    Write-Host "PowerApps modules installed successfully" -ForegroundColor Green
+    Write-Host "PowerApps modules installed successfully." -ForegroundColor Green
 } catch {
     Write-Warning "Failed to install PowerApps modules: $($_.Exception.Message)"
 }
@@ -81,7 +81,7 @@ foreach ($ext in $extensions) {
 }
 
 # Install Dataverse Core Tools, update Path Environment Variable permanently
-Write-Host "Installing Dataverse Core Tools. Updating PATH environment variable." -ForegroundColor Yellow
+Write-Host "Installing Dataverse Core Tools..." -ForegroundColor Yellow
 $powerAppsCliPath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Microsoft\PowerAppsCLI"
 if (Test-Path $powerAppsCliPath) {
     $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
@@ -101,4 +101,4 @@ if (Test-Path $powerAppsCliPath) {
     Write-Host "Dataverse Core Tool installation completed successfully." -ForegroundColor Green
 }
 
-Write-Host "`nSetup Complete! Please restart your Windows machine for all changes to take full effect." -ForegroundColor Green
+Write-Host "`nSetup complete! Please restart your machine for all changes to take full effect." -ForegroundColor Green
