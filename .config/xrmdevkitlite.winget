@@ -1,4 +1,5 @@
 # yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+# LITE VERSION FOR TESTING PURPOSES
 
 properties:
   configurationVersion: 0.2.0
