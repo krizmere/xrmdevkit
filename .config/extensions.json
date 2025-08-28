@@ -1,0 +1,31 @@
+{
+  "recommendations": [
+    // Core languages
+    "ms-dotnettools.csharp",            // C# for plugin development
+    "ms-vscode.powershell",             // PowerShell scripting for automation
+    "ms-python.python",                 // Python (for tooling/scripts)
+
+    // Dynamics 365 / Power Platform specific
+    "microsoft-IsvExpTools.powerplatform-vscode", // Power Platform Tools (includes pac integration)
+    "mrivastava.xrm-essentials",        // Xrm Toolkit for VS Code (community)
+    
+    // Azure / cloud tooling
+    "ms-azuretools.vscode-azurefunctions", // Azure Functions (for serverless plugins/integrations)
+    "ms-vscode.vscode-node-azure-pack",    // Node/Azure pack (useful if you do JS/TS in portals)
+
+    // Web / Portal dev
+    "dbaeumer.vscode-eslint",           // ESLint for portal JS/TS
+    "esbenp.prettier-vscode",           // Prettier for formatting
+    "ms-vscode.live-server",            // Quick static site testing for portals
+
+    // Database / ALM
+    "ms-mssql.mssql",                   // SQL Server tools (for Dataverse backend/db access)
+    "ms-vscode.azure-repos",            // Azure Repos integration
+    "eamodio.gitlens",                  // GitLens (better Git history/blame)
+
+    // Quality of life
+    "ms-vscode-remote.remote-wsl",      // Remote WSL (useful if mixing Linux tools)
+    "ms-vscode-remote.remote-containers", // Dev containers for consistent envs
+    "streetsidesoftware.code-spell-checker" // Spell checker for docs/code
+  ]
+}
