@@ -28,11 +28,12 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 .\scripts\xrmdevkit.ps1
 ```
 
-## Consulting
+## General
 | Tool  | Description | Free/Paid |
 | :-- | :-- | :-- |
 | Microsoft Teams  | Intelligent Recap for transcribing and summarising client meetings during requirements gathering or analysis is crucial.  | Premium License |
-| OneNote  | For note taking that can be synchronised across devices, tied to your account. | Free |
+| Microsoft Office  | For note taking that can be synchronised across devices, tied to your account. | Free |
+| PDFgear  | Free tool for working with PDFs. | Free |
 
 ## Browser Tools/Extensions
 Setup browser profiles per client for easier management of different environments and a bookmark library for easy access to common pages within D365, PP, Azure, DevOps, Teams etc.

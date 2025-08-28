@@ -12,10 +12,10 @@ if (-not $isAdmin) {
     exit 1
 }
 
-Write-Host "Starting D365 Developer Machine Setup..." -ForegroundColor Green
+Write-Host "Starting D365 Developer Machine Setup..." -ForegroundColor Yellow
 
 # XrmToolBox shortcut creation
-Write-Host "Adding XrmToolBox shortcut to Start Menu" -ForegroundColor Green
+Write-Host "Adding XrmToolBox shortcut to Start Menu" -ForegroundColor Yellow
 $possiblePaths = @(
     "$env:LOCALAPPDATA\Microsoft\WinGet\Packages",
     "${env:ProgramFiles(x86)}\MscrmTools",
@@ -49,36 +49,22 @@ if ($exe) {
 }
 
 # Install Visual Studio Workloads and Packs
-Write-Host "Modifying Visual Studio 2022 Professional. Adding Workloads and Packs from .config/.vsconfig" -ForegroundColor Green
+Write-Host "Modifying Visual Studio 2022 Professional. Adding Workloads and Packs from .config/.vsconfig" -ForegroundColor Yellow
 & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe" `
     modify `
     --installPath "C:\Program Files\Microsoft Visual Studio\2022\Professional" `
-    --config "C:\myconfig.vsconfig" `
+    --config ".config\.vsconfig" `
     --quiet `
     --allowUnsignedExtensions `
     2>&1 | Where-Object { $_ -match "error" -or $_ -match "failed" }
-Get-Content (Get-ChildItem "$env:TEMP\dd_setup_*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName | Select-String -Pattern "Error|Failed"
-
-# Install Dataverse Core Tools, update Path Environment Variable permanently
-Write-Host "Installing Dataverse Core Tools. Updating PATH environment variable." -ForegroundColor Green
-$powerAppsCliPath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Microsoft\PowerAppsCLI"
-if (Test-Path $powerAppsCliPath) {
-    $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
-    if ($currentPath -notlike "*$powerAppsCliPath*") {
-        [Environment]::SetEnvironmentVariable("Path", $currentPath + ";$powerAppsCliPath", "User")
-        Write-Host "Added PowerAppsCLI to user PATH" -ForegroundColor Green
-    }
-    # Also update current session PATH
-    $env:PATH += ";$powerAppsCliPath"
-    pac tool prt
-    pac tool cmt
-    pac tool pd
-    pac tool list
-}
+Write-Host "Completed Visual Studio 2022 Professional modification." -ForegroundColor Green
 
 # Install PowerApps modules
+Write-Host "Installing PowerApps modules..." -ForegroundColor Yellow
 try {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser
+    Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
     Install-Module -Name Microsoft.PowerApps.Administration.PowerShell -Force -AllowClobber -ErrorAction Stop -Scope CurrentUser
     Install-Module -Name Microsoft.PowerApps.PowerShell -Force -AllowClobber -ErrorAction Stop -Scope CurrentUser
     Write-Host "PowerApps modules installed successfully" -ForegroundColor Green
@@ -87,10 +73,31 @@ try {
 }
    
 # Install Visual Studio Code extensions from extensions.json
-Write-Host "Installing VS Code extensions..."
+Write-Host "Installing VS Code extensions..." -ForegroundColor Yellow
 $extensions = (Get-Content ".\.config\extensions.json" | ConvertFrom-Json).recommendations
 foreach ($ext in $extensions) {
     code --install-extension $ext --force
+}
+
+# Install Dataverse Core Tools, update Path Environment Variable permanently
+Write-Host "Installing Dataverse Core Tools. Updating PATH environment variable." -ForegroundColor Yellow
+$powerAppsCliPath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Microsoft\PowerAppsCLI"
+if (Test-Path $powerAppsCliPath) {
+    $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    if ($currentPath -notlike "*$powerAppsCliPath*") {
+        # Add PowerAppsCLI to user PATH
+        [Environment]::SetEnvironmentVariable("Path", $currentPath + ";$powerAppsCliPath", "User")
+    }
+    # Also update current session PATH
+    $env:PATH += ";$powerAppsCliPath"
+    Write-Host "Please close the PRT window after launch to continue with the installation" -ForegroundColor Yellow
+    pac tool prt
+    Write-Host "Please close the CMT window after launch to continue with the installation" -ForegroundColor Yellow
+    pac tool cmt
+    Write-Host "Please close the PD window after launch to continue with the installation" -ForegroundColor Yellow
+    pac tool pd
+    pac tool list
+    Write-Host "Dataverse Core Tool installation completed successfully." -ForegroundColor Green
 }
 
 Write-Host "`nSetup Complete! Please restart your Windows machine for all changes to take full effect." -ForegroundColor Green
